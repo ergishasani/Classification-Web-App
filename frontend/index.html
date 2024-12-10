@@ -23,13 +23,12 @@
             <label for="fileInput" id="fileLabel">Upload a file (PDF, DOCX, or TXT):</label>
             <input type="file" id="fileInput" name="file" accept=".pdf, .docx, .txt" required>
             <p id="fileName"></p>
+            <button type="submit">Classify</button>
         </form>
         <div class="buttons">
-            <button type="submit">Classify</button>
             <button type="button" id="clearButton">Clear</button>
         </div>
         <div id="result" role="status" aria-live="polite"></div>
-        <div id="results"></div>
         <script src="./script.js"></script>
         <footer>
             <p>

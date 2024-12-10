@@ -35,3 +35,4 @@ form.addEventListener('submit', async (e) => {
         resultDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 });
+
