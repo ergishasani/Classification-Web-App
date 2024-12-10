@@ -13,16 +13,14 @@
     <div class="container">
         <h1>ClassifyAI</h1>
         <form id="uploadForm">
-            <label for="fileInput">Upload a text file:</label>
-            <input type="file" id="fileInput" name="file" accept=".txt" required>
+            <label for="fileInput">Upload a file (PDF, DOCX, or TXT):</label>
+            <input type="file" id="fileInput" name="file" accept=".pdf, .docx, .txt" required>
             <button type="submit">Classify</button>
         </form>
         <div id="result" role="status" aria-live="polite"></div>
     </div>
 
     <script src="./script.js"></script>
-
-
 </body>
 
 </html>
