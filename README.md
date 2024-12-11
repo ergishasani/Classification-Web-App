@@ -126,7 +126,7 @@ ClassifyAI_Project/
 
 ## Contributors
 
-- Group 7
+- Ergis Hasani & Hysnie Likaj
 
 ## License
 
