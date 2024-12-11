@@ -9,11 +9,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
 from sklearn.naive_bayes import MultinomialNB
 import PyPDF2
 import docx
+# Import necessary libraries for handling files, text preprocessing, model training, Flask API, and file formats.
+
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)
-app.config["UPLOAD_FOLDER"] = "./uploads"
+CORS(app)  # Enable Cross-Origin Resource Sharing
+app.config["UPLOAD_FOLDER"] = "./uploads"  # Directory to store uploaded files
 
 # Categories and training data
 categories = ["Mathematics", "Science", "Literature", "History", "Biology", "Technology", "Geography", "Fungi", "Philosophy", "Astronomy", "Medicine", "Engineering", "Economics", "Psychology", "Sociology", "Architecture", "Music", "Art", "Linguistics", "Political Science"]
@@ -39,6 +41,7 @@ training_data = {
     "Linguistics": ["syntax", "semantics", "phonology", "morphology", "pragmatics"],
     "Political Science": ["governance", "policy", "elections", "diplomacy", "law"]
 }
+
 # Preprocess text
 stop_words = set(stopwords.words('english')).union(ENGLISH_STOP_WORDS)
 lemmatizer = WordNetLemmatizer()
@@ -105,6 +108,20 @@ def extract_text(filepath):
     else:
         raise ValueError(f"Unsupported file type: {ext}")
 
+def calculate_category_confidence(content):
+    word_counts = {word: content.split().count(word) for word in content.split()}
+    category_scores = {
+        category: sum(word_counts[word] for word in keywords if word in word_counts)
+        for category, keywords in training_data.items()
+    }
+    best_category = max(category_scores, key=category_scores.get)
+    confidence = (
+        (category_scores[best_category] / sum(category_scores.values())) * 100
+        if sum(category_scores.values()) > 0
+        else 0
+    )
+    return best_category, round(confidence, 2)
+
 # Classification endpoint
 @app.route('/classify', methods=['POST'])
 def classify():
@@ -123,17 +140,15 @@ def classify():
         content = extract_text(filepath)
         content = preprocess_text(content, vocabulary)
 
-        # Predict category
-        X_test_vec = vectorizer.transform([content])
-        prediction = model.predict(X_test_vec)[0]
-        confidence = max(model.predict_proba(X_test_vec)[0]) * 100
+        # Predict category and confidence
+        best_category, confidence = calculate_category_confidence(content)
 
         # Log classification result
-        log_entry = {"filename": file.filename, "category": prediction, "confidence": confidence}
+        log_entry = {"filename": file.filename, "category": best_category, "confidence": confidence}
         with open("classification_log.json", "a") as log:
             log.write(json.dumps(log_entry) + "\n")
 
-        return jsonify({"filename": file.filename, "category": prediction, "confidence": confidence, "filtered_text": content})
+        return jsonify({"filename": file.filename, "category": best_category, "confidence": confidence, "filtered_text": content})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     finally:
