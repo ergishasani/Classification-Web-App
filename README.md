@@ -110,15 +110,19 @@ ClassifyAI_Project/
 
 ### Main Screen
 
-[Insert Screenshot]
+![image](https://github.com/user-attachments/assets/c11adc42-dacf-41f0-9988-4f107c1e9100)
+
 
 ### File Uploaded
 
-[Insert Screenshot]
+![image](https://github.com/user-attachments/assets/54763e35-c47e-4304-8069-24c59c31a0af)
+
+
 
 ### Classification Result
 
-[Insert Screenshot]
+![image](https://github.com/user-attachments/assets/8f79d6e7-0105-4107-99c9-6831721b74a2)
+
 
 ## Contributors
 
