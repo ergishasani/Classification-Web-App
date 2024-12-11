@@ -126,7 +126,7 @@ ClassifyAI_Project/
 
 ## Contributors
 
-- Group 7
+- [Ergis Hasani](https://www.linkedin.com/in/ergis-hasani-bb9ba0174?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app) & [Hysnie Likaj](https://www.linkedin.com/in/hysnie-likaj-140261280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app)
 
 ## License
 
